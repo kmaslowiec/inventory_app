@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.android.pets.data.PetContract.PetEntry;
 
 /**
- * Database helper for Pets app. Manages database creation and version management.
+ * Database helper for Pets app. Manages database cr    eation and version management.
  */
 public class PetDbHelper extends SQLiteOpenHelper {
 
