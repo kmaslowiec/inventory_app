@@ -31,7 +31,7 @@ public final class InventoryContract {
      * device.
      */
 
-    public final static String CONTENT_AUTHORITY = "com.example.android.pets";
+    public final static String CONTENT_AUTHORITY = "com.example.android.inventory";
 
     /**
      * Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
@@ -47,7 +47,7 @@ public final class InventoryContract {
      * as the ContentProvider hasn't been given any information on what to do with "staff".
      */
 
-    public static final String PATH_PETS = "pets";
+    public static final String PATH_INVENTORY = "inventory";
 
 
 
@@ -66,22 +66,22 @@ public final class InventoryContract {
          * the content provider.
          */
 
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_INVENTORY);
 
-        /** Name of database table for pets */
-        public final static String TABLE_NAME = "pets";
+        /** Name of database table for inventory */
+        public final static String TABLE_NAME = "inventory";
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a list of pets.
+         * The MIME type of the {@link #CONTENT_URI} for a list of items.
          */
         public static final String CONTENT_LIST_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_INVENTORY;
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a single pet.
+         * The MIME type of the {@link #CONTENT_URI} for a single item.
          */
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PETS;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_INVENTORY;
 
         /**
          * Unique ID number for the pet (only for use in the database table).
@@ -95,14 +95,14 @@ public final class InventoryContract {
          *
          * Type: TEXT
          */
-        public final static String COLUMN_PET_NAME ="name";
+        public final static String COLUMN_ITEM_NAME ="name";
 
         /**
          * Breed of the pet.
          *
-         * Type: TEXT
+         * Type: FLOAT
          */
-        public final static String COLUMN_PET_BREED = "breed";
+        public final static String COLUMN_ITEM_PRICE = "price";
 
         /**
          * Gender of the pet.
@@ -112,7 +112,7 @@ public final class InventoryContract {
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_PET_GENDER = "gender";
+       // public final static String COLUMN_PET_GENDER = "gender";
 
         /**
          * Weight of the pet.

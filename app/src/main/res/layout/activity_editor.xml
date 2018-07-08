@@ -42,47 +42,46 @@
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_pet_name"
-                android:hint="@string/hint_pet_name"
+                android:hint="@string/hint_item_name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
 
             <!-- Breed field -->
             <EditText
-                android:id="@+id/edit_pet_breed"
-                android:hint="@string/hint_pet_breed"
+                android:id="@+id/edit_item_price"
+                android:hint="@string/hint_item_price"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>
     </LinearLayout>
-
     <!-- Gender category -->
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/container_gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Label -->
+        &lt;!&ndash; Label &ndash;&gt;
         <TextView
             android:text="@string/category_gender"
             style="@style/CategoryStyle" />
 
-        <!-- Input field -->
+        &lt;!&ndash; Input field &ndash;&gt;
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <!-- Gender drop-down spinner -->
+            &lt;!&ndash; Gender drop-down spinner &ndash;&gt;
             <Spinner
                 android:id="@+id/spinner_gender"
                 android:layout_height="48dp"
                 android:layout_width="wrap_content"
                 android:paddingRight="16dp"
                 android:spinnerMode="dropdown"/>
-        </LinearLayout>
-    </LinearLayout>
+        </LinearLayout> &ndash;&gt;
+    </LinearLayout>-->
 
     <!-- Measurement category -->
     <LinearLayout

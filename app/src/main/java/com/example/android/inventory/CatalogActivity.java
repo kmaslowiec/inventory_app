@@ -116,8 +116,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // you will actually use after this query.
         String[] projection = {
                 PetEntry._ID,
-                PetEntry.COLUMN_PET_NAME,
-                PetEntry.COLUMN_PET_BREED,
+                PetEntry.COLUMN_ITEM_NAME,
+                PetEntry.COLUMN_ITEM_PRICE,
                 PetEntry.COLUMN_PET_GENDER,
                 PetEntry.COLUMN_PET_WEIGHT };
 
@@ -147,9 +147,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Create a ContentValues object where column names are the keys,
         // and Toto's pet attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(PetEntry.COLUMN_PET_NAME, "Toto");
-        values.put(PetEntry.COLUMN_PET_BREED, "Terrier");
-        values.put(PetEntry.COLUMN_PET_GENDER, PetEntry.GENDER_MALE);
+        values.put(PetEntry.COLUMN_ITEM_NAME, "Toto");
+        values.put(PetEntry.COLUMN_ITEM_PRICE, "Terrier");
+        //values.put(PetEntry.COLUMN_PET_GENDER, PetEntry.GENDER_MALE);
         values.put(PetEntry.COLUMN_PET_WEIGHT, 7);
 
         // Insert a new row for Toto into the provider using the ContentResolver.
@@ -193,8 +193,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         String[] projection = {
                 PetEntry._ID,
-                PetEntry.COLUMN_PET_NAME,
-                PetEntry.COLUMN_PET_BREED
+                PetEntry.COLUMN_ITEM_NAME,
+                PetEntry.COLUMN_ITEM_PRICE
         };
 
         // This loader will execute the ContentProvider's query method on a background thread

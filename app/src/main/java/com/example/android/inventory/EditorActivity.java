@@ -1,19 +1,19 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.example.android.inventory;
+
+/* Copyright (C) 2016 The Android Open Source Project
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        *      http://www.apache.org/licenses/LICENSE-2.0
+        *
+        * Unless required by applicable law or agreed to in writing, software
+        * distributed under the License is distributed on an "AS IS" BASIS,
+        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        * See the License for the specific language governing permissions and
+        * limitations under the License.
+        */
+        package com.example.android.inventory;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -33,10 +33,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.android.inventory.data.InventoryContract.PetEntry;
@@ -63,7 +60,7 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText mWeightEditText;
 
     /** EditText field to enter the pet's gender */
-    private Spinner mGenderSpinner;
+    //private Spinner mGenderSpinner;
 
     /**
      * Gender of the pet. The possible valid values are in the InventoryContract.java file:
@@ -117,9 +114,9 @@ public class EditorActivity extends AppCompatActivity implements
 
         // Find all relevant views that we will need to read user input from
         mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
-        mBreedEditText = (EditText) findViewById(R.id.edit_pet_breed);
+        mBreedEditText = (EditText) findViewById(R.id.edit_item_price);
         mWeightEditText = (EditText) findViewById(R.id.edit_pet_weight);
-        mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
+        //mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
@@ -127,15 +124,15 @@ public class EditorActivity extends AppCompatActivity implements
         mNameEditText.setOnTouchListener(mTouchListener);
         mBreedEditText.setOnTouchListener(mTouchListener);
         mWeightEditText.setOnTouchListener(mTouchListener);
-        mGenderSpinner.setOnTouchListener(mTouchListener);
+        //mGenderSpinner.setOnTouchListener(mTouchListener);
 
-        setupSpinner();
+        //setupSpinner();
     }
 
     /**
      * Setup the dropdown spinner that allows the user to select the gender of the pet.
      */
-    private void setupSpinner() {
+    /*private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
         ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
@@ -169,7 +166,7 @@ public class EditorActivity extends AppCompatActivity implements
                 mGender = PetEntry.GENDER_UNKNOWN;
             }
         });
-    }
+    }*/
 
     /**
      * Get user input from editor and save pet into database.
@@ -194,9 +191,9 @@ public class EditorActivity extends AppCompatActivity implements
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(PetEntry.COLUMN_PET_NAME, nameString);
-        values.put(PetEntry.COLUMN_PET_BREED, breedString);
-        values.put(PetEntry.COLUMN_PET_GENDER, mGender);
+        values.put(PetEntry.COLUMN_ITEM_NAME, nameString);
+        values.put(PetEntry.COLUMN_ITEM_PRICE, breedString);
+        //values.put(PetEntry.COLUMN_, mGender);
         // If the weight is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
         int weight = 0;
@@ -337,9 +334,9 @@ public class EditorActivity extends AppCompatActivity implements
         // all columns from the pet table
         String[] projection = {
                 PetEntry._ID,
-                PetEntry.COLUMN_PET_NAME,
-                PetEntry.COLUMN_PET_BREED,
-                PetEntry.COLUMN_PET_GENDER,
+                PetEntry.COLUMN_ITEM_NAME,
+                PetEntry.COLUMN_ITEM_PRICE,
+                //PetEntry.COLUMN_PET_GENDER,
                 PetEntry.COLUMN_PET_WEIGHT };
 
         // This loader will execute the ContentProvider's query method on a background thread
@@ -362,15 +359,15 @@ public class EditorActivity extends AppCompatActivity implements
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
             // Find the columns of pet attributes that we're interested in
-            int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME);
-            int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_BREED);
-            int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER);
+            int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_NAME);
+            int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
+            //int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER);
             int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
             String breed = cursor.getString(breedColumnIndex);
-            int gender = cursor.getInt(genderColumnIndex);
+            //int gender = cursor.getInt(genderColumnIndex);
             int weight = cursor.getInt(weightColumnIndex);
 
             // Update the views on the screen with the values from the database
@@ -381,7 +378,7 @@ public class EditorActivity extends AppCompatActivity implements
             // Gender is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
             // Then call setSelection() so that option is displayed on screen as the current selection.
-            switch (gender) {
+            /*switch (gender) {
                 case PetEntry.GENDER_MALE:
                     mGenderSpinner.setSelection(1);
                     break;
@@ -390,8 +387,8 @@ public class EditorActivity extends AppCompatActivity implements
                     break;
                 default:
                     mGenderSpinner.setSelection(0);
-                    break;
-            }
+                    break;*/
+
         }
     }
 
@@ -401,7 +398,7 @@ public class EditorActivity extends AppCompatActivity implements
         mNameEditText.setText("");
         mBreedEditText.setText("");
         mWeightEditText.setText("");
-        mGenderSpinner.setSelection(0); // Select "Unknown" gender
+        //mGenderSpinner.setSelection(0); // Select "Unknown" gender
     }
 
     /**
