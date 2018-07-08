@@ -119,7 +119,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 PetEntry.COLUMN_ITEM_NAME,
                 PetEntry.COLUMN_ITEM_PRICE,
                 PetEntry.COLUMN_PET_GENDER,
-                PetEntry.COLUMN_PET_WEIGHT };
+                PetEntry.COLUMN_ITEM_QUANTITY };
 
         // Perform a query on the provider using the ContentResolver.
         // Use the {@link PetEntry#CONTENT_URI} to access the pet data.
@@ -150,7 +150,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         values.put(PetEntry.COLUMN_ITEM_NAME, "Toto");
         values.put(PetEntry.COLUMN_ITEM_PRICE, "Terrier");
         //values.put(PetEntry.COLUMN_PET_GENDER, PetEntry.GENDER_MALE);
-        values.put(PetEntry.COLUMN_PET_WEIGHT, 7);
+        values.put(PetEntry.COLUMN_ITEM_QUANTITY, 7);
 
         // Insert a new row for Toto into the provider using the ContentResolver.
         // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert

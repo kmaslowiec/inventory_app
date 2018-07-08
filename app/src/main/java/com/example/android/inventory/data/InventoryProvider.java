@@ -160,7 +160,7 @@ public class InventoryProvider extends ContentProvider {
         }
 
         // If the weight is provided, check that it's greater than or equal to 0 kg
-        Integer weight = values.getAsInteger(PetEntry.COLUMN_PET_WEIGHT);
+        Integer weight = values.getAsInteger(PetEntry.COLUMN_ITEM_QUANTITY);
         if (weight != null && weight < 0) {
             throw new IllegalArgumentException("Pet requires valid weight");
         }
@@ -215,7 +215,7 @@ public class InventoryProvider extends ContentProvider {
         if (values.containsKey(PetEntry.COLUMN_ITEM_NAME)) {
             String name = values.getAsString(PetEntry.COLUMN_ITEM_NAME);
             if (name == null) {
-                throw new IllegalArgumentException("Pet requires a name");
+                throw new IllegalArgumentException("Item requires a name");
             }
         }
 
@@ -228,13 +228,13 @@ public class InventoryProvider extends ContentProvider {
             }
         }*/
 
-        // If the {@link PetEntry#COLUMN_PET_WEIGHT} key is present,
+        // If the {@link PetEntry#COLUMN_ITEM_QUANTITY} key is present,
         // check that the weight value is valid.
-        if (values.containsKey(PetEntry.COLUMN_PET_WEIGHT)) {
+        if (values.containsKey(PetEntry.COLUMN_ITEM_QUANTITY)) {
             // Check that the weight is greater than or equal to 0 kg
-            Integer weight = values.getAsInteger(PetEntry.COLUMN_PET_WEIGHT);
+            Integer weight = values.getAsInteger(PetEntry.COLUMN_ITEM_QUANTITY);
             if (weight != null && weight < 0) {
-                throw new IllegalArgumentException("Pet requires valid weight");
+                throw new IllegalArgumentException("Item requires valid quanitity");
             }
         }
 

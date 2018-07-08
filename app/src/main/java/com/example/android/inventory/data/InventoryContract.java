@@ -119,25 +119,32 @@ public final class InventoryContract {
          *
          * Type: INTEGER
          */
-        public final static String COLUMN_PET_WEIGHT = "weight";
+        public final static String COLUMN_ITEM_QUANTITY = "quantity";
+
+        /**
+         * Weight of the pet.
+         *
+         * Type: INTEGER
+         */
+        public final static String COLUMN_ITEM_SUPPLIER_NAME = "supname";
 
         /**
          * Possible values for the gender of the pet.
-         */
+         *//*
         public static final int GENDER_UNKNOWN = 0;
         public static final int GENDER_MALE = 1;
         public static final int GENDER_FEMALE = 2;
 
-        /**
+        *//**
          * Returns whether or not the given gender is {@link #GENDER_UNKNOWN}, {@link #GENDER_MALE},
          * or {@link #GENDER_FEMALE}.
-         */
+         *//*
         public static boolean isValidGender(int gender) {
             if (gender == GENDER_UNKNOWN || gender == GENDER_MALE || gender == GENDER_FEMALE) {
                 return true;
             }
             return false;
-        }
+        }*/
     }
 
 }

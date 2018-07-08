@@ -62,12 +62,7 @@ public class EditorActivity extends AppCompatActivity implements
     /** EditText field to enter the pet's gender */
     //private Spinner mGenderSpinner;
 
-    /**
-     * Gender of the pet. The possible valid values are in the InventoryContract.java file:
-     * {@link PetEntry#GENDER_UNKNOWN}, {@link PetEntry#GENDER_MALE}, or
-     * {@link PetEntry#GENDER_FEMALE}.
-     */
-    private int mGender = PetEntry.GENDER_UNKNOWN;
+
 
     /** Boolean flag that keeps track of whether the pet has been edited (true) or not (false) */
     private boolean mPetHasChanged = false;
@@ -115,7 +110,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Find all relevant views that we will need to read user input from
         mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
         mBreedEditText = (EditText) findViewById(R.id.edit_item_price);
-        mWeightEditText = (EditText) findViewById(R.id.edit_pet_weight);
+        mWeightEditText = (EditText) findViewById(R.id.edit_item_quantity);
         //mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -180,13 +175,13 @@ public class EditorActivity extends AppCompatActivity implements
 
         // Check if this is supposed to be a new pet
         // and check if all the fields in the editor are blank
-        if (mCurrentPetUri == null &&
+       /* if (mCurrentPetUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(breedString) &&
                 TextUtils.isEmpty(weightString) && mGender == PetEntry.GENDER_UNKNOWN) {
             // Since no fields were modified, we can return early without creating a new pet.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
-        }
+        }*/
 
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
@@ -200,7 +195,7 @@ public class EditorActivity extends AppCompatActivity implements
         if (!TextUtils.isEmpty(weightString)) {
             weight = Integer.parseInt(weightString);
         }
-        values.put(PetEntry.COLUMN_PET_WEIGHT, weight);
+        values.put(PetEntry.COLUMN_ITEM_QUANTITY, weight);
 
         // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
         if (mCurrentPetUri == null) {
@@ -337,7 +332,7 @@ public class EditorActivity extends AppCompatActivity implements
                 PetEntry.COLUMN_ITEM_NAME,
                 PetEntry.COLUMN_ITEM_PRICE,
                 //PetEntry.COLUMN_PET_GENDER,
-                PetEntry.COLUMN_PET_WEIGHT };
+                PetEntry.COLUMN_ITEM_QUANTITY};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -362,7 +357,7 @@ public class EditorActivity extends AppCompatActivity implements
             int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_NAME);
             int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
             //int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER);
-            int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT);
+            int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_QUANTITY);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
