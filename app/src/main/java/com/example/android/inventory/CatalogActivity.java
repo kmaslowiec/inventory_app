@@ -77,6 +77,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // create a new intent to go to {@ link EditorActivity}
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
+                intent.putExtra("edition", true);
+
                 /*Form the content URI of specific pet that was clicked on,
                   by appending the "id" (passed as an input to this method) onto the {@link PetEntry@CONTENT_URI}.
                   For example, the URI would be "content//:com.example.android.pets/pets/2"

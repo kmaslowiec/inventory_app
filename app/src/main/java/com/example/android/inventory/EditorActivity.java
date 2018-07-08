@@ -43,7 +43,7 @@ import com.example.android.inventory.data.InventoryContract.PetEntry;
  */
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /** Identifier for the inventory data loader */
     private static final int EXISTING_INVENTORY_LOADER = 0;
 
     /** Content URI for the existing pet (null if it's a new pet) */
@@ -66,6 +66,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     /** EditText field to enter the pet's gender */
     //private Spinner mGenderSpinner;
+
+    private boolean edition;
 
 
 
@@ -94,6 +96,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         Intent intent = getIntent();
         mCurrentInventoryUri = intent.getData();
 
+        Bundle intentExtra = getIntent().getExtras();
+
+        // Find all relevant views that we will need to read user input from
+        mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
+        mPriceEditText = (EditText) findViewById(R.id.edit_item_price);
+        mQuantityEditText = (EditText) findViewById(R.id.edit_item_quantity);
+        mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
+        mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone);
+
+        if (intentExtra != null) {
+            edition = intentExtra.getBoolean("edition"); // gets boolean from MainActivity
+        }
+
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
         if (mCurrentInventoryUri == null) {
@@ -102,8 +117,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a pet that hasn't been created yet.)
-            invalidateOptionsMenu();
-        } else {
+            invalidateOptionsMenu();}
+        else if(edition){
+
+                setTitle(getString(R.string.editor_activity_title_details));
+                mNameEditText.setEnabled(false);
+                mPriceEditText.setEnabled(false);
+                mQuantityEditText.setEnabled(false);
+                mSupplierNameEditText.setEnabled(false);
+                mSupplierPhoneEditText.setEnabled(false);
+            getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
+
+            }
+         else {
             // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
             setTitle(getString(R.string.editor_activity_title_edit_pet));
 
@@ -112,12 +138,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
         }
 
-        // Find all relevant views that we will need to read user input from
-        mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
-        mPriceEditText = (EditText) findViewById(R.id.edit_item_price);
-        mQuantityEditText = (EditText) findViewById(R.id.edit_item_quantity);
-        mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
-        mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone);
+
         //mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -256,10 +277,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        MenuItem menuItemDelete = menu.findItem(R.id.action_delete);
+
+
         // If this is a new pet, hide the "Delete" menu item.
-        if (mCurrentInventoryUri == null) {
-            MenuItem menuItem = menu.findItem(R.id.action_delete);
-            menuItem.setVisible(false);
+        if (mCurrentInventoryUri == null || edition) {
+            menuItemDelete = menu.findItem(R.id.action_delete);
+            menuItemDelete.setVisible(false);
+        }
+        if(edition){
+            MenuItem menuItemSave = menu.findItem(R.id.action_save);
+            menuItemDelete.setVisible(true);
+            menuItemSave.setVisible(false);
         }
         return true;
     }
@@ -268,6 +297,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
+            case R.id.action_edit:
+                edition=false;
+                return true;
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
@@ -498,11 +530,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         finish();
     }
 
-    /**
-     * Helper method to delete all pets in the database.
-     */
-    private void deleteAllPets() {
-        int rowsDeleted = getContentResolver().delete(PetEntry.CONTENT_URI, null, null);
-        Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
+    private void goToEdit(){
+        
     }
+
 }
