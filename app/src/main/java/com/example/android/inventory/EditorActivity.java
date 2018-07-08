@@ -41,8 +41,7 @@ import com.example.android.inventory.data.InventoryContract.PetEntry;
 /**
  * Allows user to create a new pet or edit an existing one.
  */
-public class EditorActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     /** Identifier for the pet data loader */
     private static final int EXISTING_INVENTORY_LOADER = 0;
@@ -174,9 +173,9 @@ public class EditorActivity extends AppCompatActivity implements
     }*/
 
     /**
-     * Get user input from editor and save pet into database.
+     * Get user input from editor and save item into database.
      */
-    private void savePet() {
+    private void saveItem() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
@@ -272,7 +271,7 @@ public class EditorActivity extends AppCompatActivity implements
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
-                savePet();
+                saveItem();
                 // Exit activity
                 finish();
                 return true;

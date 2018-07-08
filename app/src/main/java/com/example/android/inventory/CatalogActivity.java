@@ -147,10 +147,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Create a ContentValues object where column names are the keys,
         // and Toto's pet attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(PetEntry.COLUMN_ITEM_NAME, "Toto");
-        values.put(PetEntry.COLUMN_ITEM_PRICE, "Terrier");
+        values.put(PetEntry.COLUMN_ITEM_NAME, "Lamp");
+        values.put(PetEntry.COLUMN_ITEM_PRICE, 25.5);
         //values.put(PetEntry.COLUMN_PET_GENDER, PetEntry.GENDER_MALE);
-        values.put(PetEntry.COLUMN_ITEM_QUANTITY, 7);
+        values.put(PetEntry.COLUMN_ITEM_QUANTITY, 3);
+        values.put(PetEntry.COLUMN_ITEM_SUPPLIER_NAME, "Giove Corporation");
+        values.put(PetEntry.COLUMN_ITEM_SUPPLIER_PHONE, "+4850896562");
 
         // Insert a new row for Toto into the provider using the ContentResolver.
         // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert
