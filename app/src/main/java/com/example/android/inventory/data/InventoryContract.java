@@ -129,6 +129,13 @@ public final class InventoryContract {
         public final static String COLUMN_ITEM_SUPPLIER_NAME = "supname";
 
         /**
+         * Weight of the pet.
+         *
+         * Type: INTEGER
+         */
+        public final static String COLUMN_ITEM_SUPPLIER_PHONE = "supphone";
+
+        /**
          * Possible values for the gender of the pet.
          *//*
         public static final int GENDER_UNKNOWN = 0;

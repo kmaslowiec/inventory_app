@@ -48,7 +48,7 @@
     <string name="cancel">Cancel</string>
 
     <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
-    <string name="category_overview">Overview</string>
+    <string name="category_overview">Item overview</string>
 
     <!--&lt;!&ndash; Label for gender information in the editor [CHAR LIMIT=30] &ndash;&gt;
     <string name="category_gender">Gender</string>-->
@@ -73,6 +73,9 @@
 
     <!-- Supplier name hing for sup name field in the editor [CHAR LIMIT=30] -->
     <string name="hint_supplier_name">Supplier name</string>
+
+    <!-- Supplier name hing for sup name field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_supplier_phone">Supplier phone number</string>
 
     <!-- Toast message in editor when new pet has been successfully inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_pet_successful">Item saved</string>

@@ -45,10 +45,10 @@ public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /** Identifier for the pet data loader */
-    private static final int EXISTING_PET_LOADER = 0;
+    private static final int EXISTING_INVENTORY_LOADER = 0;
 
     /** Content URI for the existing pet (null if it's a new pet) */
-    private Uri mCurrentPetUri;
+    private Uri mCurrentInventoryUri;
 
     /** EditText field to enter the itme' name */
     private EditText mNameEditText;
@@ -56,11 +56,14 @@ public class EditorActivity extends AppCompatActivity implements
     /** EditText field to enter the item's price*/
     private EditText mPriceEditText;
 
-    /** EditText field to enter the pet's weight */
+    /** EditText field to enter the item's quantity */
     private EditText mQuantityEditText;
 
-    /** EditText field to enter the pet's weight */
+    /** EditText field to enter the item's supplier name */
     private EditText mSupplierNameEditText;
+
+    /** EditText field to enter the item's supplier phone number */
+    private EditText mSupplierPhoneEditText;
 
     /** EditText field to enter the pet's gender */
     //private Spinner mGenderSpinner;
@@ -68,16 +71,16 @@ public class EditorActivity extends AppCompatActivity implements
 
 
     /** Boolean flag that keeps track of whether the pet has been edited (true) or not (false) */
-    private boolean mPetHasChanged = false;
+    private boolean mInventoryHasChanged = false;
 
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
-     * the view, and we change the mPetHasChanged boolean to true.
+     * the view, and we change the mInventoryHasChanged boolean to true.
      */
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            mPetHasChanged = true;
+            mInventoryHasChanged = true;
             return false;
         }
     };
@@ -90,11 +93,11 @@ public class EditorActivity extends AppCompatActivity implements
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new pet or editing an existing one.
         Intent intent = getIntent();
-        mCurrentPetUri = intent.getData();
+        mCurrentInventoryUri = intent.getData();
 
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
-        if (mCurrentPetUri == null) {
+        if (mCurrentInventoryUri == null) {
             // This is a new pet, so change the app bar to say "Add a Pet"
             setTitle(getString(R.string.editor_activity_title_new_pet));
 
@@ -107,7 +110,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Initialize a loader to read the pet data from the database
             // and display the current values in the editor
-            getLoaderManager().initLoader(EXISTING_PET_LOADER, null, this);
+            getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
         }
 
         // Find all relevant views that we will need to read user input from
@@ -115,6 +118,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText = (EditText) findViewById(R.id.edit_item_price);
         mQuantityEditText = (EditText) findViewById(R.id.edit_item_quantity);
         mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
+        mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone);
         //mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -124,6 +128,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setOnTouchListener(mTouchListener);
         mQuantityEditText.setOnTouchListener(mTouchListener);
         mSupplierNameEditText.setOnTouchListener(mTouchListener);
+        mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
         //mGenderSpinner.setOnTouchListener(mTouchListener);
 
         //setupSpinner();
@@ -178,9 +183,10 @@ public class EditorActivity extends AppCompatActivity implements
         String priceString = mPriceEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
         String supplierNameString = mSupplierNameEditText.getText().toString().trim();
+        String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
         // Check if this is supposed to be a new pet
         // and check if all the fields in the editor are blank
-       /* if (mCurrentPetUri == null &&
+       /* if (mCurrentInventoryUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(breedString) &&
                 TextUtils.isEmpty(weightString) && mGender == PetEntry.GENDER_UNKNOWN) {
             // Since no fields were modified, we can return early without creating a new pet.
@@ -202,9 +208,10 @@ public class EditorActivity extends AppCompatActivity implements
         }
         values.put(PetEntry.COLUMN_ITEM_QUANTITY, quantity);
         values.put(PetEntry.COLUMN_ITEM_SUPPLIER_NAME, supplierNameString);
+        values.put(PetEntry.COLUMN_ITEM_SUPPLIER_PHONE, supplierPhoneString);
 
-        // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
-        if (mCurrentPetUri == null) {
+        // Determine if this is a new or existing pet by checking if mCurrentInventoryUri is null or not
+        if (mCurrentInventoryUri == null) {
             // This is a NEW pet, so insert a new pet into the provider,
             // returning the content URI for the new pet.
             Uri newUri = getContentResolver().insert(PetEntry.CONTENT_URI, values);
@@ -220,11 +227,11 @@ public class EditorActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
+            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentInventoryUri
             // and pass in the new ContentValues. Pass in null for the selection and selection args
-            // because mCurrentPetUri will already identify the correct row in the database that
+            // because mCurrentInventoryUri will already identify the correct row in the database that
             // we want to modify.
-            int rowsAffected = getContentResolver().update(mCurrentPetUri, values, null, null);
+            int rowsAffected = getContentResolver().update(mCurrentInventoryUri, values, null, null);
 
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
@@ -251,7 +258,7 @@ public class EditorActivity extends AppCompatActivity implements
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new pet, hide the "Delete" menu item.
-        if (mCurrentPetUri == null) {
+        if (mCurrentInventoryUri == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
         }
@@ -278,7 +285,7 @@ public class EditorActivity extends AppCompatActivity implements
             case android.R.id.home:
                 // If the pet hasn't changed, continue with navigating up to parent activity
                 // which is the {@link CatalogActivity}.
-                if (!mPetHasChanged) {
+                if (!mInventoryHasChanged) {
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
                 }
@@ -309,7 +316,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         // If the pet hasn't changed, continue with handling back button press
-        if (!mPetHasChanged) {
+        if (!mInventoryHasChanged) {
             super.onBackPressed();
             return;
         }
@@ -339,11 +346,12 @@ public class EditorActivity extends AppCompatActivity implements
                 PetEntry.COLUMN_ITEM_PRICE,
                 //PetEntry.COLUMN_PET_GENDER,
                 PetEntry.COLUMN_ITEM_QUANTITY,
-                PetEntry.COLUMN_ITEM_SUPPLIER_NAME };
+                PetEntry.COLUMN_ITEM_SUPPLIER_NAME,
+                PetEntry.COLUMN_ITEM_SUPPLIER_PHONE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                mCurrentPetUri,         // Query the content URI for the current pet
+                mCurrentInventoryUri,         // Query the content URI for the current pet
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
@@ -366,6 +374,7 @@ public class EditorActivity extends AppCompatActivity implements
             //int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER);
             int quantityColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_QUANTITY);
             int supplierNameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_SUPPLIER_NAME);
+            int supplierPhoneColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_SUPPLIER_PHONE);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
@@ -373,12 +382,14 @@ public class EditorActivity extends AppCompatActivity implements
             //int gender = cursor.getInt(genderColumnIndex);
             int quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
+            String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
             mPriceEditText.setText(Float.toString(price));
             mQuantityEditText.setText(Integer.toString(quantity));
             mSupplierNameEditText.setText(supplierName);
+            mSupplierPhoneEditText.setText(supplierPhone);
 
             // Gender is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
@@ -404,6 +415,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setText("");
         mQuantityEditText.setText("");
         mSupplierNameEditText.setText("");
+        mSupplierPhoneEditText.setText("");
         //mGenderSpinner.setSelection(0); // Select "Unknown" gender
     }
 
@@ -467,11 +479,11 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private void deletePet() {
         // Only perform the delete if this is an existing pet.
-        if (mCurrentPetUri != null) {
+        if (mCurrentInventoryUri != null) {
             // Call the ContentResolver to delete the pet at the given content URI.
-            // Pass in null for the selection and selection args because the mCurrentPetUri
+            // Pass in null for the selection and selection args because the mCurrentInventoryUri
             // content URI already identifies the pet that we want.
-            int rowsDeleted = getContentResolver().delete(mCurrentPetUri, null, null);
+            int rowsDeleted = getContentResolver().delete(mCurrentInventoryUri, null, null);
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
