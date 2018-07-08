@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.pets;
+package com.example.android.inventory;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -39,7 +39,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.android.pets.data.PetContract.PetEntry;
+import com.example.android.inventory.data.InventoryContract.PetEntry;
 
 /**
  * Allows user to create a new pet or edit an existing one.
@@ -66,7 +66,7 @@ public class EditorActivity extends AppCompatActivity implements
     private Spinner mGenderSpinner;
 
     /**
-     * Gender of the pet. The possible valid values are in the PetContract.java file:
+     * Gender of the pet. The possible valid values are in the InventoryContract.java file:
      * {@link PetEntry#GENDER_UNKNOWN}, {@link PetEntry#GENDER_MALE}, or
      * {@link PetEntry#GENDER_FEMALE}.
      */

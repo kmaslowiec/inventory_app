@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.pets;
+package com.example.android.inventory;
 
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -31,7 +31,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.android.pets.data.PetContract.PetEntry;
+import com.example.android.inventory.data.InventoryContract.PetEntry;
 
 /**
  * Displays list of pets that were entered and stored in the app.
@@ -40,7 +40,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private static final int PET_LOADER = 0;
 
-    PetCursorAdapter mCursorAdapter;
+    InventoryCursorAdapter mCursorAdapter;
 
 
     @Override
@@ -67,7 +67,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         // Setup an Adapter to create a list item for each row of pet data in the Cursor.
         // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
-        mCursorAdapter = new PetCursorAdapter(this, null);
+        mCursorAdapter = new InventoryCursorAdapter(this, null);
         petListView.setAdapter(mCursorAdapter);
 
         //setup item click Listener
@@ -134,7 +134,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         ListView petListView = (ListView) findViewById(R.id.list);
 
         // Setup an Adapter to create a list item for each row of pet data in the Cursor.
-        PetCursorAdapter adapter = new PetCursorAdapter(this, cursor);
+        InventoryCursorAdapter adapter = new InventoryCursorAdapter(this, cursor);
 
         // Attach the adapter to the ListView.
         petListView.setAdapter(adapter);
