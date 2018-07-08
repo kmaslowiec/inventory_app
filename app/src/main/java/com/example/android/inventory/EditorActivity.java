@@ -46,6 +46,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /** Identifier for the inventory data loader */
     private static final int EXISTING_INVENTORY_LOADER = 0;
 
+    InventoryCursorAdapter mCursorAdapter;
+
     /** Content URI for the existing pet (null if it's a new pet) */
     private Uri mCurrentInventoryUri;
 
@@ -120,23 +122,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             invalidateOptionsMenu();}
         else if(edition){
 
-                setTitle(getString(R.string.editor_activity_title_details));
-                mNameEditText.setEnabled(false);
-                mPriceEditText.setEnabled(false);
-                mQuantityEditText.setEnabled(false);
-                mSupplierNameEditText.setEnabled(false);
-                mSupplierPhoneEditText.setEnabled(false);
-            getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
+                uneditableItem();
 
             }
-         else {
-            // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
-            setTitle(getString(R.string.editor_activity_title_edit_pet));
 
-            // Initialize a loader to read the pet data from the database
-            // and display the current values in the editor
-            getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
-        }
 
 
         //mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
@@ -278,17 +267,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         MenuItem menuItemDelete = menu.findItem(R.id.action_delete);
-
+        MenuItem menuItemSave = menu.findItem(R.id.action_save);
+        MenuItem menuItemEdit = menu.findItem(R.id.action_edit);
 
         // If this is a new pet, hide the "Delete" menu item.
         if (mCurrentInventoryUri == null || edition) {
-            menuItemDelete = menu.findItem(R.id.action_delete);
+
             menuItemDelete.setVisible(false);
         }
         if(edition){
-            MenuItem menuItemSave = menu.findItem(R.id.action_save);
+
             menuItemDelete.setVisible(true);
             menuItemSave.setVisible(false);
+        }
+        if(!edition){
+            menuItemDelete.setVisible(true);
+            menuItemSave.setVisible(false);
+            menuItemEdit.setVisible(false);
         }
         return true;
     }
@@ -298,7 +293,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             case R.id.action_edit:
-                edition=false;
+                editableItem();
+                Toast.makeText(this, "it works", Toast.LENGTH_SHORT).show();
                 return true;
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
@@ -530,8 +526,29 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         finish();
     }
 
-    private void goToEdit(){
-        
+    private void editableItem(){
+        // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
+        setTitle(getString(R.string.editor_activity_title_edit_pet));
+
+        edition=false;
+        mNameEditText.setEnabled(true);
+        mPriceEditText.setEnabled(true);
+        mQuantityEditText.setEnabled(true);
+        mSupplierNameEditText.setEnabled(true);
+        mSupplierPhoneEditText.setEnabled(true);
+        // Initialize a loader to read the pet data from the database
+        // and display the current values in the editor
+        getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
+    }
+
+    private void uneditableItem(){
+        setTitle(getString(R.string.editor_activity_title_details));
+        mNameEditText.setEnabled(false);
+        mPriceEditText.setEnabled(false);
+        mQuantityEditText.setEnabled(false);
+        mSupplierNameEditText.setEnabled(false);
+        mSupplierPhoneEditText.setEnabled(false);
+        getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
     }
 
 }
