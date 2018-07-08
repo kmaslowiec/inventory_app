@@ -50,14 +50,17 @@ public class EditorActivity extends AppCompatActivity implements
     /** Content URI for the existing pet (null if it's a new pet) */
     private Uri mCurrentPetUri;
 
-    /** EditText field to enter the pet's name */
+    /** EditText field to enter the itme' name */
     private EditText mNameEditText;
 
-    /** EditText field to enter the pet's breed */
-    private EditText mBreedEditText;
+    /** EditText field to enter the item's price*/
+    private EditText mPriceEditText;
 
     /** EditText field to enter the pet's weight */
-    private EditText mWeightEditText;
+    private EditText mQuantityEditText;
+
+    /** EditText field to enter the pet's weight */
+    private EditText mSupplierNameEditText;
 
     /** EditText field to enter the pet's gender */
     //private Spinner mGenderSpinner;
@@ -109,16 +112,18 @@ public class EditorActivity extends AppCompatActivity implements
 
         // Find all relevant views that we will need to read user input from
         mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
-        mBreedEditText = (EditText) findViewById(R.id.edit_item_price);
-        mWeightEditText = (EditText) findViewById(R.id.edit_item_quantity);
+        mPriceEditText = (EditText) findViewById(R.id.edit_item_price);
+        mQuantityEditText = (EditText) findViewById(R.id.edit_item_quantity);
+        mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
         //mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
         // or not, if the user tries to leave the editor without saving.
         mNameEditText.setOnTouchListener(mTouchListener);
-        mBreedEditText.setOnTouchListener(mTouchListener);
-        mWeightEditText.setOnTouchListener(mTouchListener);
+        mPriceEditText.setOnTouchListener(mTouchListener);
+        mQuantityEditText.setOnTouchListener(mTouchListener);
+        mSupplierNameEditText.setOnTouchListener(mTouchListener);
         //mGenderSpinner.setOnTouchListener(mTouchListener);
 
         //setupSpinner();
@@ -170,9 +175,9 @@ public class EditorActivity extends AppCompatActivity implements
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String nameString = mNameEditText.getText().toString().trim();
-        String breedString = mBreedEditText.getText().toString().trim();
-        String weightString = mWeightEditText.getText().toString().trim();
-
+        String priceString = mPriceEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
+        String supplierNameString = mSupplierNameEditText.getText().toString().trim();
         // Check if this is supposed to be a new pet
         // and check if all the fields in the editor are blank
        /* if (mCurrentPetUri == null &&
@@ -187,15 +192,16 @@ public class EditorActivity extends AppCompatActivity implements
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(PetEntry.COLUMN_ITEM_NAME, nameString);
-        values.put(PetEntry.COLUMN_ITEM_PRICE, breedString);
+        values.put(PetEntry.COLUMN_ITEM_PRICE, priceString);
         //values.put(PetEntry.COLUMN_, mGender);
         // If the weight is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
-        int weight = 0;
-        if (!TextUtils.isEmpty(weightString)) {
-            weight = Integer.parseInt(weightString);
+        int quantity = 0;
+        if (!TextUtils.isEmpty(quantityString)) {
+            quantity = Integer.parseInt(quantityString);
         }
-        values.put(PetEntry.COLUMN_ITEM_QUANTITY, weight);
+        values.put(PetEntry.COLUMN_ITEM_QUANTITY, quantity);
+        values.put(PetEntry.COLUMN_ITEM_SUPPLIER_NAME, supplierNameString);
 
         // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
         if (mCurrentPetUri == null) {
@@ -332,7 +338,8 @@ public class EditorActivity extends AppCompatActivity implements
                 PetEntry.COLUMN_ITEM_NAME,
                 PetEntry.COLUMN_ITEM_PRICE,
                 //PetEntry.COLUMN_PET_GENDER,
-                PetEntry.COLUMN_ITEM_QUANTITY};
+                PetEntry.COLUMN_ITEM_QUANTITY,
+                PetEntry.COLUMN_ITEM_SUPPLIER_NAME };
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -355,20 +362,23 @@ public class EditorActivity extends AppCompatActivity implements
         if (cursor.moveToFirst()) {
             // Find the columns of pet attributes that we're interested in
             int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_NAME);
-            int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
+            int priceColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
             //int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER);
-            int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_QUANTITY);
+            int quantityColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_SUPPLIER_NAME);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
-            String breed = cursor.getString(breedColumnIndex);
+            float price = cursor.getFloat(priceColumnIndex);
             //int gender = cursor.getInt(genderColumnIndex);
-            int weight = cursor.getInt(weightColumnIndex);
+            int quantity = cursor.getInt(quantityColumnIndex);
+            String supplierName = cursor.getString(supplierNameColumnIndex);
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
-            mBreedEditText.setText(breed);
-            mWeightEditText.setText(Integer.toString(weight));
+            mPriceEditText.setText(Float.toString(price));
+            mQuantityEditText.setText(Integer.toString(quantity));
+            mSupplierNameEditText.setText(supplierName);
 
             // Gender is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
@@ -391,8 +401,9 @@ public class EditorActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         // If the loader is invalidated, clear out all the data from the input fields.
         mNameEditText.setText("");
-        mBreedEditText.setText("");
-        mWeightEditText.setText("");
+        mPriceEditText.setText("");
+        mQuantityEditText.setText("");
+        mSupplierNameEditText.setText("");
         //mGenderSpinner.setSelection(0); // Select "Unknown" gender
     }
 

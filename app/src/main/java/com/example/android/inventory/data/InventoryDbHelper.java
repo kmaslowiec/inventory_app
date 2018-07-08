@@ -56,7 +56,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
                 + PetEntry.COLUMN_ITEM_NAME + " TEXT NOT NULL, "
                 + PetEntry.COLUMN_ITEM_PRICE + " FLOAT NOT NULL, "
                 + PetEntry.COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL DEFAULT 0,"
-                + PetEntry.COLUMN_ITEM_SUPPLIER_NAME + " TEXT NOT NULL);";
+                + PetEntry.COLUMN_ITEM_SUPPLIER_NAME + " TEXT);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_PETS_TABLE);

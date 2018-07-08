@@ -145,7 +145,7 @@ public class InventoryProvider extends ContentProvider {
         // Check that the name is not null
         String name = values.getAsString(PetEntry.COLUMN_ITEM_NAME);
         if (name == null) {
-            throw new IllegalArgumentException("Pet requires a name");
+            throw new IllegalArgumentException("Item requires a name");
         }
 
         // Check that the gender is valid
@@ -156,13 +156,13 @@ public class InventoryProvider extends ContentProvider {
 
         Integer price = values.getAsInteger(PetEntry.COLUMN_ITEM_PRICE);
         if (price != null && price < 0) {
-            throw new IllegalArgumentException("Pet requires valid weight");
+            throw new IllegalArgumentException("Pet requires price");
         }
 
         // If the weight is provided, check that it's greater than or equal to 0 kg
         Integer weight = values.getAsInteger(PetEntry.COLUMN_ITEM_QUANTITY);
         if (weight != null && weight < 0) {
-            throw new IllegalArgumentException("Pet requires valid weight");
+            throw new IllegalArgumentException("Item requires quantity");
         }
 
         // No need to check the breed, any value is valid (including null).
