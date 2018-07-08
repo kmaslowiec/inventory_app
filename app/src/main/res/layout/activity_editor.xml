@@ -50,7 +50,7 @@
             <EditText
                 android:id="@+id/edit_item_price"
                 android:hint="@string/hint_item_price"
-                android:inputType="textCapWords"
+                android:inputType="numberDecimal"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>
     </LinearLayout>

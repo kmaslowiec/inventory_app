@@ -14,12 +14,39 @@
         android:fontFamily="sans-serif-medium"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="#2B3D4D"  />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/price_label"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/priceLabelColor"  />
 
     <TextView
         android:id="@+id/summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/price_left_margin"
+        android:layout_toRightOf="@id/price_label"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="#AEB6BD"  />
+        android:textColor="@color/priceColor"  />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/price_left_margin"
+            android:layout_toRightOf="@id/summary"
+            android:fontFamily="sans-serif"
+            android:text="@string/price_currency_sign"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/priceColor"  />
+
+    </RelativeLayout>
 </LinearLayout>

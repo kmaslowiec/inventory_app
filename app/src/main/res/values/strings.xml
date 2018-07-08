@@ -59,8 +59,14 @@
     <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
     <string name="hint_item_name">Name</string>
 
-    <!-- Text hint for breed field in the editor [CHAR LIMIT=30] -->
+    <!-- Text hint for price field in the editor [CHAR LIMIT=30] -->
     <string name="hint_item_price">Price</string>
+
+    <!-- Text hint for price label field in the editor [CHAR LIMIT=30] -->
+    <string name="price_label">Price:</string>
+
+    <!-- Text hint for price currency sign field in the editor [CHAR LIMIT=30] -->
+    <string name="price_currency_sign">$</string>
 
     <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
     <string name="hint_pet_weight">Weight</string>

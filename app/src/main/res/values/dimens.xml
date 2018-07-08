@@ -15,5 +15,9 @@
 
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
+
+    <!-- Price left margin -->
+    <dimen name="price_left_margin">5dp</dimen>
+
 </resources>
 
