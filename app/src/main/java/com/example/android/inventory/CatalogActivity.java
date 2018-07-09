@@ -37,7 +37,7 @@ import com.example.android.inventory.data.InventoryContract.ItemEntry;
 /**
  * Displays list of items that were entered and stored in the app.
  */
-public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class    CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int ITEM_LOADER = 0;
 

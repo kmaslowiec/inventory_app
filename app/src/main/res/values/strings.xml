@@ -91,13 +91,13 @@
     <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_pet_failed">Error with saving item</string>
 
-    <!-- Label for dropdown menu option if the pet's gender is unknown [CHAR LIMIT=20] -->
+    <!--Label for dropdown menu option if the pet's gender is unknown [CHAR LIMIT=20] -->
     <string name="gender_unknown">Unknown</string>
 
     <!-- Label for dropdown menu option if the pet is male [CHAR LIMIT=20] -->
     <string name="gender_male">Male</string>
 
-    <!-- Label for dropdown menu option if the pet is female [CHAR LIMIT=20] -->
+    <!-- Label for dropdown menu option if the pet is female [CHAR LIMIT=20]-->
     <string name="gender_female">Female</string>
 
     <!-- Toast message in editor when current pet was successfully updated [CHAR LIMIT=NONE] -->
@@ -121,5 +121,7 @@
     <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
 
+    <!-- buy button in list item -->
+    <string name="buy_button_text">buy</string>
 
 </resources>
