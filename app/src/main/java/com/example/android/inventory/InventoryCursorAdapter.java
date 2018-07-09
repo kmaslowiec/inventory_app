@@ -23,14 +23,13 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.android.inventory.data.InventoryContract.PetEntry;
-
-import org.w3c.dom.Text;
+import com.example.android.inventory.data.InventoryContract;
+import com.example.android.inventory.data.InventoryContract.ItemEntry;
 
 /**
  * {@link InventoryCursorAdapter} is an adapter for a list or grid view
- * that uses a {@link Cursor} of pet data as its data source. This adapter knows
- * how to create list items for each row of pet data in the {@link Cursor}.
+ * that uses a {@link Cursor} of item data as its data source. This adapter knows
+ * how to create list items for each row of item data in the {@link Cursor}.
  */
 public class InventoryCursorAdapter extends CursorAdapter {
 
@@ -60,8 +59,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
     }
 
     /**
-     * This method binds the pet data (in the current row pointed to by cursor) to the given
-     * list item layout. For example, the name for the current pet can be set on the name TextView
+     * This method binds the item data (in the current row pointed to by cursor) to the given
+     * list item layout. For example, the name for the current item can be set on the name TextView
      * in the list item layout.
      *
      * @param view    Existing view, returned earlier by newView() method
@@ -76,17 +75,17 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView priceTextView = (TextView) view.findViewById(R.id.summary);
         TextView quantityTextView = (TextView) view.findViewById(R.id.item_quantity_value);
 
-        // Find the columns of pet attributes that we're interested in
-        int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_NAME);
-        int priceColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
-        int quantityColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_QUANTITY);
+        // Find the columns of item attributes that we're interested in
+        int nameColumnIndex = cursor.getColumnIndex(InventoryContract.ItemEntry.COLUMN_ITEM_NAME);
+        int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
+        int quantityColumnIndex = cursor.getColumnIndex(InventoryContract.ItemEntry.COLUMN_ITEM_QUANTITY);
 
-        // Read the pet attributes from the Cursor for the current pet
+        // Read the item attributes from the Cursor for the current item
         String itemName = cursor.getString(nameColumnIndex);
         String itemPrice = cursor.getString(priceColumnIndex);
         String itemQuantity = cursor.getString(quantityColumnIndex);
 
-        // Update the TextViews with the attributes for the current pet
+        // Update the TextViews with the attributes for the current item
         nameTextView.setText(itemName);
         priceTextView.setText(itemPrice);
         quantityTextView.setText(itemQuantity);

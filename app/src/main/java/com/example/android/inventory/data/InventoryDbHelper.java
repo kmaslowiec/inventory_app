@@ -19,16 +19,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.inventory.data.InventoryContract.PetEntry;
+import com.example.android.inventory.data.InventoryContract.ItemEntry;
 
 /**
- * Database helper for Pets app. Manages database cr    eation and version management.
+ * Database helper for Items app. Manages database cr    eation and version management.
  */
 public class InventoryDbHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = InventoryDbHelper.class.getSimpleName();
 
-    /** Name of the database file */
+    /**
+     * Name of the database file
+     */
     private static final String DATABASE_NAME = "inventory.db";
 
     /**
@@ -50,14 +52,14 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
-        String SQL_CREATE_INVENTORY_TABLE =  "CREATE TABLE " + PetEntry.TABLE_NAME + " ("
-                + PetEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + PetEntry.COLUMN_ITEM_NAME + " TEXT NOT NULL, "
-                + PetEntry.COLUMN_ITEM_PRICE + " FLOAT NOT NULL, "
-                + PetEntry.COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL DEFAULT 0,"
-                + PetEntry.COLUMN_ITEM_SUPPLIER_NAME + " TEXT,"
-                + PetEntry.COLUMN_ITEM_SUPPLIER_PHONE + " TEXT);";
+        // Create a String that contains the SQL statement to create the items table
+        String SQL_CREATE_INVENTORY_TABLE = "CREATE TABLE " + InventoryContract.ItemEntry.TABLE_NAME + " ("
+                + InventoryContract.ItemEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + InventoryContract.ItemEntry.COLUMN_ITEM_NAME + " TEXT NOT NULL, "
+                + InventoryContract.ItemEntry.COLUMN_ITEM_PRICE + " FLOAT NOT NULL, "
+                + ItemEntry.COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL DEFAULT 0,"
+                + ItemEntry.COLUMN_ITEM_SUPPLIER_NAME + " TEXT,"
+                + InventoryContract.ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE + " TEXT);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_INVENTORY_TABLE);

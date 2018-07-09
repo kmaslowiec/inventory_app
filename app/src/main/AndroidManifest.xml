@@ -44,13 +44,6 @@
             android:authorities="com.example.android.inventory"
             android:exported="false" />
 
-        <activity android:name=".DetailsActivity"
-            android:label="Details"
-
-            >
-
-
-        </activity>
     </application>
 
 </manifest>

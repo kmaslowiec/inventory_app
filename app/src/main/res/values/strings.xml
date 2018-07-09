@@ -23,7 +23,7 @@
     <string name="editor_activity_title_new_pet">Add an Item</string>
 
     <!-- Title for the activity to edit pet [CHAR LIMIT=20] -->
-    <string name="editor_activity_title_edit_pet">Edit Item</string>
+    <string name="editor_activity_title_edit_item">Edit Item</string>
 
     <!-- Title for the activity to edit pet [CHAR LIMIT=20] -->
     <string name="editor_activity_title_details">Item Details</string>
@@ -38,10 +38,10 @@
     <string name="action_edit">Edit</string>
 
     <!-- Toast message in editor when current pet was successfully deleted [CHAR LIMIT=NONE] -->
-    <string name="editor_delete_pet_successful">Item deleted</string>
+    <string name="editor_delete_item_successful">Item deleted</string>
 
     <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
-    <string name="editor_delete_pet_failed">Error with deleting item</string>
+    <string name="editor_delete_item_failed">Error with deleting item</string>
 
     <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
     <string name="delete_dialog_msg">Delete this item?</string>
