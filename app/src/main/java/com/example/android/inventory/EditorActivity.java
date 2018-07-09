@@ -280,10 +280,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             menuItemDelete.setVisible(true);
             menuItemSave.setVisible(false);
         }
-        if(!edition){
+        if(!edition && mCurrentInventoryUri!=null){
+            menuItemSave.setVisible(true);
             menuItemDelete.setVisible(true);
-            menuItemSave.setVisible(false);
             menuItemEdit.setVisible(false);
+
         }
         return true;
     }

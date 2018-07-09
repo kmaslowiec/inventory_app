@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.example.android.inventory.data.InventoryContract.PetEntry;
 
+import org.w3c.dom.Text;
+
 /**
  * {@link InventoryCursorAdapter} is an adapter for a list or grid view
  * that uses a {@link Cursor} of pet data as its data source. This adapter knows
@@ -71,18 +73,22 @@ public class InventoryCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
+        TextView priceTextView = (TextView) view.findViewById(R.id.summary);
+        TextView quantityTextView = (TextView) view.findViewById(R.id.item_quantity_value);
 
         // Find the columns of pet attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_NAME);
-        int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
+        int priceColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_PRICE);
+        int quantityColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_ITEM_QUANTITY);
 
         // Read the pet attributes from the Cursor for the current pet
-        String petName = cursor.getString(nameColumnIndex);
-        String petBreed = cursor.getString(breedColumnIndex);
+        String itemName = cursor.getString(nameColumnIndex);
+        String itemPrice = cursor.getString(priceColumnIndex);
+        String itemQuantity = cursor.getString(quantityColumnIndex);
 
         // Update the TextViews with the attributes for the current pet
-        nameTextView.setText(petName);
-        summaryTextView.setText(petBreed);
+        nameTextView.setText(itemName);
+        priceTextView.setText(itemPrice);
+        quantityTextView.setText(itemQuantity);
     }
 }

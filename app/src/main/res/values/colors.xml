@@ -32,5 +32,7 @@
     <!-- Price color -->
     <color name="priceColor">#3fdd00</color>
 
+    <!-- Black -->
+    <color name="black">#000</color>
 
 </resources>

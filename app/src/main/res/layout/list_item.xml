@@ -48,5 +48,29 @@
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/priceColor"  />
 
+        <TextView
+            android:id="@+id/quantity_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_below="@id/summary"
+            android:text="@string/quantity_label"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/priceLabelColor"  />
+
+        <TextView
+            android:id="@+id/item_quantity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/price_left_margin"
+            android:layout_toRightOf="@id/quantity_label"
+            android:layout_below="@id/price_label"
+            android:text="value"
+            android:fontFamily="sans-serif"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/black"  />
+
+
+
     </RelativeLayout>
 </LinearLayout>

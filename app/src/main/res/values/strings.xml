@@ -73,6 +73,9 @@
     <!-- Text hint for price currency sign field in the editor [CHAR LIMIT=30] -->
     <string name="price_currency_sign">$</string>
 
+    <!-- Text hint for price label field in the editor [CHAR LIMIT=30] -->
+    <string name="quantity_label">Quantity:</string>
+
     <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
     <string name="hint_item_quantity">Quantity</string>
 
