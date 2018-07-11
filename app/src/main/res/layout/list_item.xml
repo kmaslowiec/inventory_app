@@ -8,12 +8,13 @@
     android:orientation="horizontal">
 
     <Button
+        android:id="@+id/sale_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:focusable="false"
-        android:text="@string/buy_button_text"
+        android:text="@string/sale_button_text"
         android:layout_marginRight="@dimen/activity_margin"
         />
 <LinearLayout

@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.inventory.data.InventoryContract;
 import com.example.android.inventory.data.InventoryContract.ItemEntry;
@@ -196,4 +197,39 @@ public class    CatalogActivity extends AppCompatActivity implements LoaderManag
         int rowsDeleted = getContentResolver().delete(InventoryContract.ItemEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from item database");
     }
+
+    /**
+     * Sale helper method to update the quantity in the item view
+     * @param id the position of the item in SQLite databse
+     * @param qty the quantity taken from list_item
+     */
+
+    public void saleItem(long id, int qty){
+
+        if(qty>=1){
+
+            qty--;
+            //Construct the Uri
+            Uri updateUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
+            ContentValues values = new ContentValues();
+            values.put(ItemEntry.COLUMN_ITEM_QUANTITY, qty);
+
+            int rowsUpdated = getContentResolver().update(
+                    updateUri,
+                    values,
+                    null,
+                    null);
+            if (rowsUpdated == 1) {
+                Toast.makeText(this, R.string.sale_ok, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.sale_failed, Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            //  Out of stock
+            Toast.makeText(this, R.string.out_of_stock, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 }

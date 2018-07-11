@@ -22,9 +22,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventory.data.InventoryContract;
 import com.example.android.inventory.data.InventoryContract.ItemEntry;
+import com.example.android.inventory.data.InventoryProvider;
 
 /**
  * {@link InventoryCursorAdapter} is an adapter for a list or grid view
@@ -32,6 +34,14 @@ import com.example.android.inventory.data.InventoryContract.ItemEntry;
  * how to create list items for each row of item data in the {@link Cursor}.
  */
 public class InventoryCursorAdapter extends CursorAdapter {
+
+    private InventoryProvider provider;
+    // private int incQuantity;
+
+
+
+
+
 
     /**
      * Constructs a new {@link InventoryCursorAdapter}.
@@ -55,7 +65,9 @@ public class InventoryCursorAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         // Inflate a list item view using the layout specified in list_item.xml
+
         return LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+
     }
 
     /**
@@ -69,11 +81,12 @@ public class InventoryCursorAdapter extends CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.summary);
-        TextView quantityTextView = (TextView) view.findViewById(R.id.item_quantity_value);
+        final TextView quantityTextView = (TextView) view.findViewById(R.id.item_quantity_value);
+
 
         // Find the columns of item attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(InventoryContract.ItemEntry.COLUMN_ITEM_NAME);
@@ -89,5 +102,21 @@ public class InventoryCursorAdapter extends CursorAdapter {
         nameTextView.setText(itemName);
         priceTextView.setText(itemPrice);
         quantityTextView.setText(itemQuantity);
+
+        final long id = cursor.getInt(cursor.getColumnIndexOrThrow(ItemEntry._ID));
+        final int qty = Integer.parseInt(itemQuantity);
+
+        view.findViewById(R.id.sale_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                CatalogActivity mainActivity = (CatalogActivity) context;
+                mainActivity.saleItem(id, qty);
+
+
+
+            }
+        });
+
     }
 }

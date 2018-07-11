@@ -121,7 +121,16 @@
     <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
 
-    <!-- buy button in list item -->
-    <string name="buy_button_text">buy</string>
+    <!-- sale button in list item -->
+    <string name="sale_button_text">sale</string>
+
+    <!-- sale ok Toast-->
+    <string name="sale_ok">The item has been sold</string>
+
+    <!-- sale failed -->
+    <string name="sale_failed">Sale was not completed</string>
+    
+    <!-- out of stock -->
+    <string name="out_of_stock">The item is out of stock</string>
 
 </resources>

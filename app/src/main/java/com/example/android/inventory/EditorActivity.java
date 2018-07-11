@@ -91,6 +91,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private boolean mInventoryHasChanged = false;
 
+    MenuItem menuItemDelete;
+    MenuItem menuItemSave;
+    MenuItem menuItemEdit;
+
     /**
      * OnTouchListener that listens for any user touches on a View, implying that they are modifying
      * the view, and we change the mInventoryHasChanged boolean to true.
@@ -123,7 +127,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone);
 
         if (intentExtra != null) {
-            edition = intentExtra.getBoolean("edition"); // gets boolean from MainActivity
+            edition = intentExtra.getBoolean("edition"); // verifies if the activity should be
+                                                            // in details or edit mode
         }
 
         // If the intent DOES NOT contain a pet content URI, then we know that we are
@@ -170,8 +175,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_ITEM_NAME, nameString);
         values.put(InventoryContract.ItemEntry.COLUMN_ITEM_PRICE, priceString);
-        //values.put(ItemEntry.COLUMN_, mGender);
-        // If the weight is not provided by the user, don't try to parse the string into an
+
+        // If the quantity is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
         int quantity = 0;
         if (!TextUtils.isEmpty(quantityString)) {
@@ -228,26 +233,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem menuItemDelete = menu.findItem(R.id.action_delete);
-        MenuItem menuItemSave = menu.findItem(R.id.action_save);
-        MenuItem menuItemEdit = menu.findItem(R.id.action_edit);
+        menuItemDelete = menu.findItem(R.id.action_delete);
+        menuItemSave = menu.findItem(R.id.action_save);
+        menuItemEdit = menu.findItem(R.id.action_edit);
 
         // If this is a new pet, hide the "Delete" menu item.
-        if (mCurrentInventoryUri == null || edition) {
+        if (mCurrentInventoryUri == null) {
 
             menuItemDelete.setVisible(false);
         }
         if (edition) {
-
             menuItemDelete.setVisible(true);
             menuItemSave.setVisible(false);
         }
-        if (!edition && mCurrentInventoryUri != null) {
-            menuItemSave.setVisible(true);
-            menuItemDelete.setVisible(true);
-            menuItemEdit.setVisible(false);
 
-        }
         return true;
     }
 
@@ -257,7 +256,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         switch (item.getItemId()) {
             case R.id.action_edit:
                 editableItem();
-                Toast.makeText(this, "it works", Toast.LENGTH_SHORT).show();
                 return true;
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
@@ -471,11 +469,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         finish();
     }
 
+    /**
+     * Makes the activity editable
+     */
     private void editableItem() {
         // Otherwise this is an existing item, so change app bar to say "Edit Item"
         setTitle(getString(R.string.editor_activity_title_edit_item));
 
         edition = false;
+        menuItemSave.setVisible(true);
+        menuItemDelete.setVisible(true);
+        menuItemEdit.setVisible(false);
+
         mNameEditText.setEnabled(true);
         mPriceEditText.setEnabled(true);
         mQuantityEditText.setEnabled(true);
@@ -486,8 +491,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
     }
 
+    /**
+     * Makes the activity uneditable
+     */
     private void uneditableItem() {
         setTitle(getString(R.string.editor_activity_title_details));
+
         mNameEditText.setEnabled(false);
         mPriceEditText.setEnabled(false);
         mQuantityEditText.setEnabled(false);
