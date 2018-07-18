@@ -28,8 +28,7 @@
     <!-- Style for a category in the editor -->
     <style name="CategoryStyle">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">sans-serif-medium</item>
@@ -53,4 +52,12 @@
         <item name="android:paddingTop">16dp</item>
         <item name="android:textAppearance">?android:textAppearanceSmall</item>
     </style>
+
+    <!-- increase / decrease quantity buttons -->
+    <style name="ButtonQuantitySyle">
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_width">25dp</item>
+
+    </style>
+
 </resources>

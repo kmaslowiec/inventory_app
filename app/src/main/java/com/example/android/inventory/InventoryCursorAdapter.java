@@ -22,8 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.android.inventory.data.InventoryContract;
 import com.example.android.inventory.data.InventoryContract.ItemEntry;
 import com.example.android.inventory.data.InventoryProvider;
@@ -85,7 +83,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.summary);
-        final TextView quantityTextView = (TextView) view.findViewById(R.id.item_quantity_value);
+        TextView quantityTextView = (TextView) view.findViewById(R.id.item_quantity_value);
 
 
         // Find the columns of item attributes that we're interested in

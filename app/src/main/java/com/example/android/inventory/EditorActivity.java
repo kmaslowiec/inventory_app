@@ -42,7 +42,8 @@ import com.example.android.inventory.data.InventoryContract.ItemEntry;
  * Allows user to create a new pet or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
+    //TODO include a + and a - buttons which decrease the item quantity by one avoiding negative quantities.
+    //TODO include a button so the user can contact the supplier via an intent using the supplier phone number.
     /**
      * Identifier for the inventory data loader
      */

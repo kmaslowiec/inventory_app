@@ -16,26 +16,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
     <!-- Overview category -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="2">
 
-        <!-- Label -->
+        <!-- Label item details-->
         <TextView
             android:text="@string/category_overview"
+            style="@style/CategoryStyle"
+            />
+
+        <!-- Label supplier details-->
+        <TextView
+            android:layout_marginTop="100dp"
+            android:text="@string/category_supplier_details"
             style="@style/CategoryStyle" />
+
+    </LinearLayout>
 
         <!-- Input fields -->
         <LinearLayout
+            android:id="@+id/input_fields"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:paddingLeft="4dp"
             android:orientation="vertical">
 
@@ -60,56 +71,6 @@
                 android:inputType="number"
                 style="@style/EditorFieldStyle" />
 
-        </LinearLayout>
-    </LinearLayout>
-    <!-- Gender category -->
-   <!-- <LinearLayout
-        android:id="@+id/container_gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        &lt;!&ndash; Label &ndash;&gt;
-        <TextView
-            android:text="@string/category_gender"
-            style="@style/CategoryStyle" />
-
-        &lt;!&ndash; Input field &ndash;&gt;
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
-            &lt;!&ndash; Gender drop-down spinner &ndash;&gt;
-            <Spinner
-                android:id="@+id/spinner_gender"
-                android:layout_height="48dp"
-                android:layout_width="wrap_content"
-                android:paddingRight="16dp"
-                android:spinnerMode="dropdown"/>
-        </LinearLayout> &ndash;&gt;
-    </LinearLayout>-->
-
-    <!-- Supplier details category -->
-    <LinearLayout
-        android:id="@+id/container_measurement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_supplier_details"
-            style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
-        <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
-
             <!-- Supplier Name field -->
             <EditText
                 android:id="@+id/edit_supplier_name"
@@ -125,7 +86,7 @@
                 android:inputType="number"
                 style="@style/EditorFieldStyle" />
 
+        </LinearLayout>
 
-        </RelativeLayout>
-    </LinearLayout>
+
 </LinearLayout>
