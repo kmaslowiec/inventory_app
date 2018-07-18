@@ -133,4 +133,10 @@
     <!-- out of stock -->
     <string name="out_of_stock">The item is out of stock</string>
 
+    <!-- button decrease quantity -->
+    <string name="dec_label">-</string>
+
+    <!-- button decrease quantity -->
+    <string name="inc_label">+</string>
+
 </resources>

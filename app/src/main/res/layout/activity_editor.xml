@@ -33,9 +33,33 @@
             style="@style/CategoryStyle"
             />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="39dp"
+            >
+
+        <Button
+            android:id="@+id/dec_button"
+            android:layout_marginRight="@dimen/activity_margin"
+            android:background="@drawable/button_shape"
+            style="@style/ButtonQuantitySyle"
+            android:text="@string/dec_label"
+            />
+        <Button
+            android:layout_toRightOf="@id/dec_button"
+            android:id="@+id/inc_button"
+            android:background="@drawable/button_shape"
+            style="@style/ButtonQuantitySyle"
+            android:text="@string/inc_label"
+            />
+
+        </RelativeLayout>
+
         <!-- Label supplier details-->
         <TextView
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:text="@string/category_supplier_details"
             style="@style/CategoryStyle" />
 
