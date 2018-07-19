@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -79,10 +80,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private EditText mSupplierPhoneEditText;
 
+
     /**
-     * EditText field to enter the pet's gender
-     */
-    //private Spinner mGenderSpinner;
+     *
+     **/
+    private Button mDecButton;
+
+    private Button mIncButton;
 
     private boolean edition;
 
@@ -126,6 +130,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mQuantityEditText = (EditText) findViewById(R.id.edit_item_quantity);
         mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
         mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone);
+
+        // Find buttons to adjust quantity in uneditable view
+
+        mDecButton = (Button) findViewById(R.id.dec_button);
+        mIncButton = (Button) findViewById(R.id.inc_button);
+
+        // Adds buttons functionality
+
+        decButton();
+        incButton();
 
         if (intentExtra != null) {
             edition = intentExtra.getBoolean("edition"); // verifies if the activity should be
@@ -482,6 +496,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         menuItemDelete.setVisible(true);
         menuItemEdit.setVisible(false);
 
+        mDecButton.setVisibility(View.INVISIBLE);
+        mIncButton.setVisibility(View.INVISIBLE);
+
         mNameEditText.setEnabled(true);
         mPriceEditText.setEnabled(true);
         mQuantityEditText.setEnabled(true);
@@ -504,6 +521,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText.setEnabled(false);
         mSupplierPhoneEditText.setEnabled(false);
         getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
+    }
+
+    private void decButton(){
+        Button button = (Button) findViewById(R.id.dec_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Dec button works", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void incButton(){
+        Button button = (Button) findViewById(R.id.inc_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Inc button works", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
