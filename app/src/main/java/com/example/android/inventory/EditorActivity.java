@@ -15,6 +15,7 @@
  */
 package com.example.android.inventory;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -45,6 +46,10 @@ import com.example.android.inventory.data.InventoryContract.ItemEntry;
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //TODO include a + and a - buttons which decrease the item quantity by one avoiding negative quantities.
     //TODO include a button so the user can contact the supplier via an intent using the supplier phone number.
+
+    private int testInt = 0;
+    boolean flag = false;
+
     /**
      * Identifier for the inventory data loader
      */
@@ -89,6 +94,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Button mIncButton;
 
     private boolean edition;
+
+    boolean pressed;
 
 
     /**
@@ -523,22 +530,56 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void decButton(){
-        Button button = (Button) findViewById(R.id.dec_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Dec button works", Toast.LENGTH_SHORT).show();
+
+        mDecButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    buttonAction(true, mDecButton);
+                    testInt--;
+                    Toast.makeText(getApplicationContext(), "testInt is " + Integer.toString(testInt), Toast.LENGTH_SHORT).show();
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    buttonAction(false, mDecButton);
+                }
+                return false;
+            }
+        });
+
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void incButton(){
+        mIncButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    buttonAction(true, mIncButton);
+                    testInt++;
+                    Toast.makeText(getApplicationContext(), "testInt is " + Integer.toString(testInt), Toast.LENGTH_SHORT).show();
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    buttonAction(false, mIncButton);
+                }
+                return false;
             }
         });
     }
 
-    private void incButton(){
-        Button button = (Button) findViewById(R.id.inc_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Inc button works", Toast.LENGTH_SHORT).show();
-            }
-        });
+    /**
+     * Method helper for quantity button
+     * @param act disable and enable custom pressed and unpressed quantity button
+     */
+    private void buttonAction(boolean act, Button button){
+
+        if(act){
+           button.setBackground(getResources().getDrawable(R.drawable.button_shape_pressed));
+        }else{
+            button.setBackground(getResources().getDrawable(R.drawable.button_shape));
+        }
+
+
     }
 
 }
