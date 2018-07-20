@@ -50,6 +50,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private int testInt = 0;
     boolean flag = false;
 
+    private int quantity;
+
     /**
      * Identifier for the inventory data loader
      */
@@ -387,7 +389,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
             float price = cursor.getFloat(priceColumnIndex);
-            int quantity = cursor.getInt(quantityColumnIndex);
+            quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
             String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
@@ -538,8 +540,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     buttonAction(true, mDecButton);
-                    testInt--;
-                    Toast.makeText(getApplicationContext(), "testInt is " + Integer.toString(testInt), Toast.LENGTH_SHORT).show();
+                    QuantitySql(0);
                 }else if(event.getAction() == MotionEvent.ACTION_UP){
                     buttonAction(false, mDecButton);
                 }
@@ -557,8 +558,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     buttonAction(true, mIncButton);
-                    testInt++;
-                    Toast.makeText(getApplicationContext(), "testInt is " + Integer.toString(testInt), Toast.LENGTH_SHORT).show();
+                    QuantitySql(1);
+
+                    //testInt++;
+                    //Toast.makeText(getApplicationContext(), "testInt is " + Integer.toString(quantity), Toast.LENGTH_SHORT).show();
                 }else if(event.getAction() == MotionEvent.ACTION_UP){
                     buttonAction(false, mIncButton);
                 }
@@ -579,6 +582,31 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             button.setBackground(getResources().getDrawable(R.drawable.button_shape));
         }
 
+
+    }
+
+    private void QuantitySql(int button){
+        if(button==1){
+            quantity++;
+            ContentValues values = new ContentValues();
+            values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
+
+            getContentResolver().update(
+                    mCurrentInventoryUri,
+                    values,
+                    null,
+                    null);
+        }else if(button==0 && quantity!=0){
+            quantity--;
+            ContentValues values = new ContentValues();
+            values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
+
+            getContentResolver().update(
+                    mCurrentInventoryUri,
+                    values,
+                    null,
+                    null);
+        }
 
     }
 
