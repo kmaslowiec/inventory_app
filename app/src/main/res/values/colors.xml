@@ -38,4 +38,7 @@
     <!-- Black -->
     <color name="black">#000</color>
 
+    <!-- Gray -->
+    <color name="gray">#A2AAB0</color>
+
 </resources>

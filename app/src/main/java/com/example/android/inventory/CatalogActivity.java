@@ -38,7 +38,7 @@ import com.example.android.inventory.data.InventoryContract.ItemEntry;
 /**
  * Displays list of items that were entered and stored in the app.
  */
-public class    CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int ITEM_LOADER = 0;
 
@@ -94,8 +94,6 @@ public class    CatalogActivity extends AppCompatActivity implements LoaderManag
 
                 //Launch the {@link EditorActivity} to display the data for the current item.
                 startActivity(intent);
-
-
             }
         });
 
@@ -107,7 +105,6 @@ public class    CatalogActivity extends AppCompatActivity implements LoaderManag
     @Override
     protected void onStart() {
         super.onStart();
-        //displayDatabaseInfo();
     }
 
     /**
@@ -152,7 +149,6 @@ public class    CatalogActivity extends AppCompatActivity implements LoaderManag
                 //deletes whole database
                 deleteAllItems();
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -177,7 +173,6 @@ public class    CatalogActivity extends AppCompatActivity implements LoaderManag
                 null,
                 null,
                 null);
-
     }
 
     @Override
@@ -200,13 +195,14 @@ public class    CatalogActivity extends AppCompatActivity implements LoaderManag
 
     /**
      * Sale helper method to update the quantity in the item view
-     * @param id the position of the item in SQLite databse
+     *
+     * @param id  the position of the item in SQLite databse
      * @param qty the quantity taken from list_item
      */
 
-    public void saleItem(long id, int qty){
+    public void saleItem(long id, int qty) {
 
-        if(qty>=1){
+        if (qty >= 1) {
 
             qty--;
             //Construct the Uri

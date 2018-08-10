@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:fontFamily="sans-serif"
-            android:text="@string/price_label"
+            android:text="@st   ring/price_label"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/priceLabelColor"  />
 

@@ -105,7 +105,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private boolean edition;
 
 
-
     /**
      * Boolean flag that keeps track of whether the pet has been edited (true) or not (false)
      */
@@ -160,7 +159,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (intentExtra != null) {
             edition = intentExtra.getBoolean("edition"); // verifies if the activity should be
-                                                            // in details or edit mode
+            // in details or edit mode
         }
 
         // If the intent DOES NOT contain a pet content URI, then we know that we are
@@ -178,7 +177,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         } else if (edition) {
 
             uneditableItemMode();
-
         }
 
 
@@ -210,13 +208,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_ITEM_NAME, nameString);
         values.put(InventoryContract.ItemEntry.COLUMN_ITEM_PRICE, priceString);
-
-        // If the quantity is not provided by the user, don't try to parse the string into an
-        // integer value. Use 0 by default.
-        int quantity = 0;
-        if (!TextUtils.isEmpty(quantityString)) {
-            quantity = Integer.parseInt(quantityString);
-        }
         values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
         values.put(InventoryContract.ItemEntry.COLUMN_ITEM_SUPPLIER_NAME, supplierNameString);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE, supplierPhoneString);
@@ -281,7 +272,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             menuItemDelete.setVisible(true);
             menuItemSave.setVisible(false);
         }
-
         return true;
     }
 
@@ -297,9 +287,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_save:
                 // Save pet to database
 
-                if(notEmptyFields()){
+                if (notEmptyFields()) {
                     Toast.makeText(this, "The fields cannot be empty", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     saveItem();
                     // Exit activity
                     finish();
@@ -418,7 +408,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mQuantityEditText.setText(Integer.toString(quantity));
             mSupplierNameEditText.setText(supplierName);
             mSupplierPhoneEditText.setText(supplierPhone);
-
         }
     }
 
@@ -528,7 +517,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mIncButton.setVisibility(View.INVISIBLE);
         mContactButton.setVisibility(View.GONE);
 
-
         mNameEditText.setEnabled(true);
         mPriceEditText.setEnabled(true);
         mQuantityEditText.setEnabled(true);
@@ -554,47 +542,41 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     /**
-     *  Removes buttons from Edit mode in Add mode
+     * Removes buttons from Edit mode in Add mode
      */
-    private void addMode(){
-
-
+    private void addMode() {
         mDecButton.setVisibility(View.INVISIBLE);
         mIncButton.setVisibility(View.INVISIBLE);
         mContactButton.setVisibility(View.GONE);
-
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void decButton(){
+    private void decButton() {
 
         mDecButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     buttonAction(true, mDecButton);
                     QuantitySql(0);
-                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     buttonAction(false, mDecButton);
                 }
                 return false;
             }
         });
-
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void incButton(){
+    private void incButton() {
         mIncButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     buttonAction(true, mIncButton);
                     QuantitySql(1);
 
-                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     buttonAction(false, mIncButton);
                 }
                 return false;
@@ -603,12 +585,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void callSupplier(){
+    private void callSupplier() {
 
         mContactButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     buttonAction(true, mContactButton);
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse("tel:" + mSupplierPhoneEditText.getText()));
@@ -616,33 +598,29 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         startActivity(intent);
                     }
 
-
-                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     buttonAction(false, mContactButton);
                 }
                 return false;
             }
         });
-
     }
 
     /**
      * Method helper for quantity button
+     *
      * @param act disable and enable custom pressed and unpressed quantity button
      */
-    private void buttonAction(boolean act, Button button){
-
-        if(act){
-           button.setBackground(getResources().getDrawable(R.drawable.button_shape_pressed));
-        }else{
+    private void buttonAction(boolean act, Button button) {
+        if (act) {
+            button.setBackground(getResources().getDrawable(R.drawable.button_shape_pressed));
+        } else {
             button.setBackground(getResources().getDrawable(R.drawable.button_shape));
         }
-
-
     }
 
-    private void QuantitySql(int button){
-        if(button==1){
+    private void QuantitySql(int button) {
+        if (button == 1) {
             quantity++;
             ContentValues values = new ContentValues();
             values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
@@ -652,7 +630,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     values,
                     null,
                     null);
-        }else if(button==0 && quantity!=0){
+        } else if (button == 0 && quantity != 0) {
             quantity--;
             ContentValues values = new ContentValues();
             values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantity);
@@ -663,25 +641,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     null,
                     null);
         }
-
     }
 
-    private boolean notEmptyFields(){
-
+    private boolean notEmptyFields() {
         String nameCheck = mNameEditText.getText().toString();
         String priceCheck = mPriceEditText.getText().toString();
         String quantityCheck = mQuantityEditText.getText().toString();
         String nameSupplierCheck = mSupplierNameEditText.getText().toString();
         String supplierPhoneCheck = mSupplierPhoneEditText.getText().toString();
 
-        if(nameCheck.equals("") || priceCheck.equals("") || quantityCheck.equals("") || nameSupplierCheck.equals("") || supplierPhoneCheck.equals("") ) {
-
+        if (nameCheck.equals("") || priceCheck.equals("") || quantityCheck.equals("") || nameSupplierCheck.equals("") || supplierPhoneCheck.equals("")) {
             return true;
-        }
-            else{
+        } else {
             return false;
         }
-
     }
 
 }
