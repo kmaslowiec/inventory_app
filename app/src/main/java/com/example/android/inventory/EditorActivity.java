@@ -156,6 +156,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         decButton();
         incButton();
+        callSupplier();
 
         if (intentExtra != null) {
             edition = intentExtra.getBoolean("edition"); // verifies if the activity should be
@@ -296,7 +297,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_save:
                 // Save pet to database
 
-
                 if(notEmptyFields()){
                     Toast.makeText(this, "The fields cannot be empty", Toast.LENGTH_SHORT).show();
                 }else{
@@ -304,18 +304,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // Exit activity
                     finish();
                 }
-
-
-
-
-
-
                 return true;
+
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 // Pop up confirmation dialog for deletion
                 showDeleteConfirmationDialog();
                 return true;
+
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 // If the pet hasn't changed, continue with navigating up to parent activity
@@ -598,14 +594,36 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     buttonAction(true, mIncButton);
                     QuantitySql(1);
 
-                    //testInt++;
-                    //Toast.makeText(getApplicationContext(), "testInt is " + Integer.toString(quantity), Toast.LENGTH_SHORT).show();
                 }else if(event.getAction() == MotionEvent.ACTION_UP){
                     buttonAction(false, mIncButton);
                 }
                 return false;
             }
         });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void callSupplier(){
+
+        mContactButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    buttonAction(true, mContactButton);
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + mSupplierPhoneEditText.getText()));
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+
+
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    buttonAction(false, mContactButton);
+                }
+                return false;
+            }
+        });
+
     }
 
     /**
@@ -655,7 +673,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String quantityCheck = mQuantityEditText.getText().toString();
         String nameSupplierCheck = mSupplierNameEditText.getText().toString();
         String supplierPhoneCheck = mSupplierPhoneEditText.getText().toString();
-
 
         if(nameCheck.equals("") || priceCheck.equals("") || quantityCheck.equals("") || nameSupplierCheck.equals("") || supplierPhoneCheck.equals("") ) {
 
