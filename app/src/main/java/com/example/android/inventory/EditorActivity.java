@@ -166,6 +166,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // creating a new pet.
         if (mCurrentInventoryUri == null) {
 
+
             // This is a new pet, so change the app bar to say "Add a Pet"
             setTitle(getString(R.string.editor_activity_title_new_pet));
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
@@ -290,12 +291,25 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_edit:
                 editableItemMode();
                 return true;
+
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
-                saveItem();
-                // Exit activity
-                finish();
+
+
+                if(notEmptyFields()){
+                    Toast.makeText(this, "The fields cannot be empty", Toast.LENGTH_SHORT).show();
+                }else{
+                    saveItem();
+                    // Exit activity
+                    finish();
+                }
+
+
+
+
+
+
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -630,6 +644,25 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     values,
                     null,
                     null);
+        }
+
+    }
+
+    private boolean notEmptyFields(){
+
+        String nameCheck = mNameEditText.getText().toString();
+        String priceCheck = mPriceEditText.getText().toString();
+        String quantityCheck = mQuantityEditText.getText().toString();
+        String nameSupplierCheck = mSupplierNameEditText.getText().toString();
+        String supplierPhoneCheck = mSupplierPhoneEditText.getText().toString();
+
+
+        if(nameCheck.equals("") || priceCheck.equals("") || quantityCheck.equals("") || nameSupplierCheck.equals("") || supplierPhoneCheck.equals("") ) {
+
+            return true;
+        }
+            else{
+            return false;
         }
 
     }
