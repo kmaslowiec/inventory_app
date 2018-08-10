@@ -139,4 +139,7 @@
     <!-- button decrease quantity -->
     <string name="inc_label">+</string>
 
+    <!-- button contact supplier -->
+    <string name="contact_label">Call Supplier</string>
+
 </resources>

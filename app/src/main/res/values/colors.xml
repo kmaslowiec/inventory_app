@@ -20,6 +20,9 @@
     <!-- Accent color for UI controls like checkboxes and text fields -->
     <color name="colorAccent">#F0514B</color>
 
+    <!-- Lighter color for the category labels in Editor -->
+    <color name="colorLightPrimary">#EF9E9B</color>
+
     <!-- Primary color for the editor -->
     <color name="editorColorPrimary">#2D3640</color>
 

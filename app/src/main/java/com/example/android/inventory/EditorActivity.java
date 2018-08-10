@@ -44,13 +44,18 @@ import com.example.android.inventory.data.InventoryContract.ItemEntry;
  * Allows user to create a new pet or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    //TODO include a + and a - buttons which decrease the item quantity by one avoiding negative quantities.
+
     //TODO include a button so the user can contact the supplier via an intent using the supplier phone number.
 
-    private int testInt = 0;
-    boolean flag = false;
-
+    /**
+     * items quantity listed in SQLite data base
+     */
     private int quantity;
+
+    /**
+     * item supplier phone number listed in SQLite data base
+     */
+    private String supplierPhone;
 
     /**
      * Identifier for the inventory data loader
@@ -95,9 +100,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private Button mIncButton;
 
+    private Button mContactButton;
+
     private boolean edition;
 
-    boolean pressed;
 
 
     /**
@@ -144,6 +150,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mDecButton = (Button) findViewById(R.id.dec_button);
         mIncButton = (Button) findViewById(R.id.inc_button);
+        mContactButton = (Button) findViewById(R.id.contact_button);
 
         // Adds buttons functionality
 
@@ -158,15 +165,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
         if (mCurrentInventoryUri == null) {
+
             // This is a new pet, so change the app bar to say "Add a Pet"
             setTitle(getString(R.string.editor_activity_title_new_pet));
-
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a pet that hasn't been created yet.)
             invalidateOptionsMenu();
+            addMode();
+
         } else if (edition) {
 
-            uneditableItem();
+            uneditableItemMode();
 
         }
 
@@ -279,7 +288,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             case R.id.action_edit:
-                editableItem();
+                editableItemMode();
                 return true;
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
@@ -391,7 +400,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             float price = cursor.getFloat(priceColumnIndex);
             quantity = cursor.getInt(quantityColumnIndex);
             String supplierName = cursor.getString(supplierNameColumnIndex);
-            String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
+            supplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
             // Update the views on the screen with the values from the database
             mNameEditText.setText(name);
@@ -496,7 +505,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Makes the activity editable
      */
-    private void editableItem() {
+    private void editableItemMode() {
         // Otherwise this is an existing item, so change app bar to say "Edit Item"
         setTitle(getString(R.string.editor_activity_title_edit_item));
 
@@ -507,6 +516,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mDecButton.setVisibility(View.INVISIBLE);
         mIncButton.setVisibility(View.INVISIBLE);
+        mContactButton.setVisibility(View.GONE);
+
 
         mNameEditText.setEnabled(true);
         mPriceEditText.setEnabled(true);
@@ -521,7 +532,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Makes the activity uneditable
      */
-    private void uneditableItem() {
+    private void uneditableItemMode() {
         setTitle(getString(R.string.editor_activity_title_details));
 
         mNameEditText.setEnabled(false);
@@ -530,6 +541,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierNameEditText.setEnabled(false);
         mSupplierPhoneEditText.setEnabled(false);
         getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
+    }
+
+    /**
+     *  Removes buttons from Edit mode in Add mode
+     */
+    private void addMode(){
+
+
+        mDecButton.setVisibility(View.INVISIBLE);
+        mIncButton.setVisibility(View.INVISIBLE);
+        mContactButton.setVisibility(View.GONE);
+
+
     }
 
     @SuppressLint("ClickableViewAccessibility")

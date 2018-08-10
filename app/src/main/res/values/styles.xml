@@ -30,9 +30,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:paddingTop">16dp</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorLightPrimary</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
     </style>
 
     <!-- Style for an EditText field in the editor -->
@@ -59,6 +59,15 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">32sp</item>
+        <item name="background">@drawable/button_shape</item>
+    </style>
+
+    <!-- contact supplier button -->
+    <style name="ButtonContactSyle">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
         <item name="background">@drawable/button_shape</item>
     </style>
 
