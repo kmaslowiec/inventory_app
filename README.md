@@ -1,4 +1,4 @@
-Pets App
+Inventory App Final Nanodegree Basic Project
 ===================================
 
 This app displays a list of inventory items and their related data that the user inputs.
