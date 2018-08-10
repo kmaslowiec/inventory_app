@@ -1,4 +1,4 @@
-Inventory App Final Nanodegree Basic Project
+Inventory App Final Nanodegree Android Basic Project
 ===================================
 
 This app displays a list of inventory items and their related data that the user inputs.
